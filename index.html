@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pferderenn-Kalender 2026</title>
+    <style>
+        :root {
+            --color-white: rgba(255, 255, 255, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --radius-base: 8px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: var(--space-16);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--color-cream-50);
+            color: var(--color-slate-900);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: var(--space-24);
+        }
+
+        h1 {
+            margin: 0 0 var(--space-8) 0;
+            font-size: 28px;
+            color: var(--color-slate-900);
+        }
+
+        .subtitle {
+            color: var(--color-slate-500);
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            gap: var(--space-12);
+            margin: var(--space-20) 0;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            gap: var(--space-8);
+            align-items: center;
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--color-slate-500);
+        }
+
+        select, input {
+            padding: var(--space-8) var(--space-12);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-base);
+            font-size: 13px;
+            background: var(--color-white);
+            color: var(--color-slate-900);
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--color-teal-500);
+            box-shadow: 0 0 0 3px rgba(33, 128, 141, 0.1);
+        }
+
+        button {
+            padding: var(--space-8) var(--space-16);
+            background: var(--color-teal-500);
+            color: white;
+            border: none;
+            border-radius: var(--radius-base);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--color-teal-600);
+        }
+
+        .timeline-container {
+            overflow-x: auto;
+            background: var(--color-white);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-24);
+        }
+
+        .timeline {
+            display: flex;
+            gap: var(--space-16);
+            min-width: min-content;
+        }
+
+        .timeline-month {
+            flex-shrink: 0;
+            min-width: 200px;
+        }
+
+        .month-title {
+            font-weight: 600;
+            color: var(--color-slate-900);
+            margin-bottom: var(--space-12);
+            font-size: 14px;
+            padding-bottom: var(--space-8);
+            border-bottom: 2px solid var(--color-gray-300);
+        }
+
+        .races {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-8);
+        }
+
+        .race-bar {
+            padding: var(--space-12);
+            border-radius: var(--radius-base);
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            word-break: break-word;
+        }
+
+        .race-bar:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Country Colors */
+        .race-bar.de { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); border-left-color: #1e40af; }
+        .race-bar.usa { background: linear-gradient(135deg, #ef4444 0%, #7f1d1d 100%); border-left-color: #7f1d1d; }
+        .race-bar.uk { background: linear-gradient(135deg, #8b5cf6 0%, #4c1d95 100%); border-left-color: #4c1d95; }
+        .race-bar.fr { background: linear-gradient(135deg, #ec4899 0%, #831843 100%); border-left-color: #831843; }
+        .race-bar.ire { background: linear-gradient(135deg, #10b981 0%, #065f46 100%); border-left-color: #065f46; }
+        .race-bar.ksa { background: linear-gradient(135deg, #f59e0b 0%, #92400e 100%); border-left-color: #92400e; }
+        .race-bar.uae { background: linear-gradient(135deg, #06b6d4 0%, #164e63 100%); border-left-color: #164e63; }
+        .race-bar.hk { background: linear-gradient(135deg, #a855f7 0%, #581c87 100%); border-left-color: #581c87; }
+        .race-bar.aus { background: linear-gradient(135deg, #f97316 0%, #7c2d12 100%); border-left-color: #7c2d12; }
+        .race-bar.jpn { background: linear-gradient(135deg, #e11d48 0%, #500724 100%); border-left-color: #500724; }
+
+        /* Category emphasis */
+        .race-bar.gr1 {
+            font-weight: 700;
+            font-size: 13px;
+            padding: var(--space-12) var(--space-12);
+        }
+
+        .race-name {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .race-meta {
+            display: block;
+            opacity: 0.85;
+            font-size: 11px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-16);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-white);
+            border-radius: var(--radius-base);
+            padding: var(--space-24);
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-header {
+            margin-bottom: var(--space-16);
+            border-bottom: 2px solid var(--color-gray-300);
+            padding-bottom: var(--space-12);
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 20px;
+            color: var(--color-slate-900);
+        }
+
+        .modal-body {
+            margin-bottom: var(--space-16);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-8) 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 14px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--color-slate-500);
+        }
+
+        .detail-value {
+            color: var(--color-slate-900);
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color-gray-300);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: auto;
+            margin-top: -8px;
+        }
+
+        .close-btn:hover {
+            color: var(--color-slate-900);
+            background: none;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-12);
+            margin-bottom: var(--space-24);
+            padding: var(--space-16);
+            background: var(--color-white);
+            border-radius: var(--radius-base);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            font-size: 13px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-12);
+            margin-bottom: var(--space-24);
+        }
+
+        .stat-box {
+            background: var(--color-white);
+            padding: var(--space-16);
+            border-radius: var(--radius-base);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-teal-500);
+            margin-bottom: var(--space-8);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--color-slate-500);
+            font-weight: 500;
+        }
+
+        .info-message {
+            padding: var(--space-16);
+            background: rgba(33, 128, 141, 0.1);
+            border-left: 4px solid var(--color-teal-500);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-16);
+            font-size: 13px;
+            color: var(--color-slate-900);
+        }
+
+        .tabs {
+            display: flex;
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+            border-bottom: 2px solid var(--color-gray-300);
+        }
+
+        .tab-btn {
+            padding: var(--space-12) var(--space-20);
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--color-slate-500);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn.active {
+            color: var(--color-teal-500);
+            border-bottom-color: var(--color-teal-500);
+        }
+
+        .tab-btn:hover {
+            color: var(--color-slate-900);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-20);
+            background: var(--color-white);
+            padding: var(--space-16);
+            border-radius: var(--radius-base);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .calendar-nav button {
+            padding: var(--space-8) var(--space-12);
+            font-size: 12px;
+        }
+
+        .calendar-month-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-slate-900);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .calendar-container {
+            background: var(--color-white);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-24);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 700;
+            color: var(--color-slate-500);
+            padding: var(--space-8) 0;
+            font-size: 12px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-base);
+            padding: var(--space-8);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 12px;
+            position: relative;
+            background: var(--color-cream-50);
+        }
+
+        .calendar-day:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .calendar-day.other-month:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        .calendar-day.has-races {
+            background: linear-gradient(135deg, rgba(33, 128, 141, 0.15), rgba(33, 128, 141, 0.05));
+            border-color: var(--color-teal-500);
+            font-weight: 600;
+            color: var(--color-slate-900);
+        }
+
+        .calendar-day-number {
+            font-weight: 600;
+        }
+
+        .calendar-day-count {
+            font-size: 10px;
+            color: var(--color-teal-500);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .calendar-day.has-races:hover {
+            background: linear-gradient(135deg, rgba(33, 128, 141, 0.25), rgba(33, 128, 141, 0.15));
+        }
+
+        .info-message {
+            padding: var(--space-16);
+            background: rgba(33, 128, 141, 0.1);
+            border-left: 4px solid var(--color-teal-500);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-16);
+            font-size: 13px;
+            color: var(--color-slate-900);
+        }
+
+        .tabs {
+            display: flex;
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+            border-bottom: 2px solid var(--color-gray-300);
+        }
+
+        .tab-btn {
+            padding: var(--space-12) var(--space-20);
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--color-slate-500);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn.active {
+            color: var(--color-teal-500);
+            border-bottom-color: var(--color-teal-500);
+        }
+
+        .tab-btn:hover {
+            color: var(--color-slate-900);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-20);
+            background: var(--color-white);
+            padding: var(--space-16);
+            border-radius: var(--radius-base);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .calendar-nav button {
+            padding: var(--space-8) var(--space-12);
+            font-size: 12px;
+        }
+
+        .calendar-month-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-slate-900);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .calendar-container {
+            background: var(--color-white);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-24);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 700;
+            color: var(--color-slate-500);
+            padding: var(--space-8) 0;
+            font-size: 12px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-base);
+            padding: var(--space-8);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 12px;
+            position: relative;
+            background: var(--color-cream-50);
+        }
+
+        .calendar-day:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .calendar-day.other-month:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        .calendar-day.has-races {
+            background: linear-gradient(135deg, rgba(33, 128, 141, 0.15), rgba(33, 128, 141, 0.05));
+            border-color: var(--color-teal-500);
+            font-weight: 600;
+            color: var(--color-slate-900);
+        }
+
+        .calendar-day-number {
+            font-weight: 600;
+        }
+
+        .calendar-day-count {
+            font-size: 10px;
+            color: var(--color-teal-500);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .calendar-day.has-races:hover {
+            background: linear-gradient(135deg, rgba(33, 128, 141, 0.25), rgba(33, 128, 141, 0.15));
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏇 Pferderenn-Kalender 2026</h1>
+            <p class="subtitle">Interaktive Timeline der wichtigsten Rennveranstaltungen weltweit</p>
+        </header>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="countryFilter">Land:</label>
+                <select id="countryFilter">
+                    <option value="">Alle Länder</option>
+                    <option value="de">Deutschland</option>
+                    <option value="uk">Großbritannien</option>
+                    <option value="usa">USA</option>
+                    <option value="fr">Frankreich</option>
+                    <option value="ire">Irland</option>
+                    <option value="ksa">Saudi-Arabien</option>
+                    <option value="uae">VAE</option>
+                    <option value="hk">Hong Kong</option>
+                    <option value="aus">Australien</option>
+                    <option value="jpn">Japan</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="categoryFilter">Kategorie:</label>
+                <select id="categoryFilter">
+                    <option value="">Alle Kategorien</option>
+                    <option value="gr1">Gr. 1 Rennen</option>
+                    <option value="gr2">Gr. 2 Rennen</option>
+                    <option value="gr3">Gr. 3 Rennen</option>
+                    <option value="klassiker">Klassiker</option>
+                    <option value="highlight">Highlights</option>
+                </select>
+            </div>
+
+            <button onclick="resetFilters()">Filter zurücksetzen</button>
+        </div>
+
+        <div class="info-message" id="infoMessage" style="display: none;"></div>
+
+        <div class="legend" id="legendContainer"></div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('timeline')">📅 Timeline View</button>
+            <button class="tab-btn" onclick="switchTab('calendar')">🗓️ Monatskalender</button>
+        </div>
+
+        <div id="timeline" class="tab-content active">
+            <div class="timeline-container">
+                <div class="timeline" id="timelineView"></div>
+            </div>
+        </div>
+
+        <div id="calendar" class="tab-content">
+            <div class="calendar-header">
+                <div class="calendar-nav">
+                    <button onclick="previousMonth()">← Vorheriger Monat</button>
+                    <div class="calendar-month-title" id="currentMonth"></div>
+                    <button onclick="nextMonth()">Nächster Monat →</button>
+                </div>
+            </div>
+            <div class="calendar-container">
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <h2 class="modal-title" id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const races = [
+            { date: "04.01.2026", event: "Jahresaufgalopp", location: "Dortmund-Wambel", country: "DE", category: "Saisonstart", gr: "" },
+            { date: "18.01.2026", event: "Winter-Renntag", location: "Dortmund-Wambel", country: "DE", category: "Sandbahn", gr: "" },
+            { date: "24.01.2026", event: "Pegasus World Cup", location: "Gulfstream Park", country: "USA", category: "Gr. 1", gr: "gr1" },
+            { date: "01.02.2026", event: "Winter-Renntag", location: "Dortmund-Wambel", country: "DE", category: "Sandbahn", gr: "" },
+            { date: "13.02.2026", event: "The Saudi Cup Meeting", location: "Riad", country: "KSA", category: "Gr. 1", gr: "gr1" },
+            { date: "22.02.2026", event: "Winter-Renntag", location: "Dortmund-Wambel", country: "DE", category: "Sandbahn", gr: "" },
+            { date: "08.03.2026", event: "Finale der Sandbahn-Saison", location: "Dortmund-Wambel", country: "DE", category: "Saisonfinale", gr: "" },
+            { date: "10.03.2026", event: "Cheltenham Festival", location: "Cheltenham", country: "UK", category: "Hindernis", gr: "gr1" },
+            { date: "13.03.2026", event: "Cheltenham Gold Cup", location: "Cheltenham", country: "UK", category: "Highlight", gr: "gr1" },
+            { date: "22.03.2026", event: "Hong Kong Derby", location: "Sha Tin", country: "HK", category: "Klassiker", gr: "gr1" },
+            { date: "28.03.2026", event: "Dubai World Cup", location: "Meydan", country: "UAE", category: "Gr. 1", gr: "gr1" },
+            { date: "06.04.2026", event: "Grand Prix Aufgalopp", location: "Köln-Weidenpesch", country: "DE", category: "Listenrennen", gr: "" },
+            { date: "11.04.2026", event: "Grand National", location: "Aintree", country: "UK", category: "Highlight", gr: "gr1" },
+            { date: "01.05.2026", event: "Bavarian Classic", location: "München-Riem", country: "DE", category: "Gr. 3", gr: "gr3" },
+            { date: "02.05.2026", event: "Kentucky Derby", location: "Churchill Downs", country: "USA", category: "Gr. 1", gr: "gr1" },
+            { date: "03.05.2026", event: "Schwarzgold-Rennen", location: "Köln-Weidenpesch", country: "DE", category: "Gr. 3", gr: "gr3" },
+            { date: "16.05.2026", event: "Preakness Stakes", location: "Laurel Park", country: "USA", category: "Gr. 1", gr: "gr1" },
+            { date: "25.05.2026", event: "German 2000 Guineas", location: "Köln-Weidenpesch", country: "DE", category: "Klassiker", gr: "gr2" },
+            { date: "31.05.2026", event: "Prix du Jockey Club", location: "Chantilly", country: "FR", category: "Gr. 1 Derby", gr: "gr1" },
+            { date: "31.05.2026", event: "German 1000 Guineas", location: "Düsseldorf", country: "DE", category: "Klassiker", gr: "gr2" },
+            { date: "04.06.2026", event: "Frühjahrs-Meeting Baden-Baden", location: "Baden-Baden", country: "DE", category: "Gruppen-Rennen", gr: "" },
+            { date: "05.06.2026", event: "The Oaks (Ladies Day)", location: "Epsom Downs", country: "UK", category: "Gr. 1", gr: "gr1" },
+            { date: "06.06.2026", event: "The Derby (Epsom)", location: "Epsom Downs", country: "UK", category: "Klassiker", gr: "gr1" },
+            { date: "06.06.2026", event: "Belmont Stakes", location: "Saratoga", country: "USA", category: "Gr. 1", gr: "gr1" },
+            { date: "14.06.2026", event: "Union-Rennen", location: "Köln-Weidenpesch", country: "DE", category: "Gr. 2", gr: "gr2" },
+            { date: "14.06.2026", event: "Prix de Diane", location: "Chantilly", country: "FR", category: "Gr. 1", gr: "gr1" },
+            { date: "16.06.2026", event: "Royal Ascot", location: "Ascot", country: "UK", category: "Meeting Gr. 1", gr: "gr1" },
+            { date: "28.06.2026", event: "Irish Derby", location: "The Curragh", country: "IRE", category: "Klassiker", gr: "gr1" },
+            { date: "05.07.2026", event: "157. Deutsches Derby", location: "Hamburg-Horn", country: "DE", category: "Klassiker", gr: "gr1" },
+            { date: "25.07.2026", event: "King George VI & Queen Elizabeth", location: "Ascot", country: "UK", category: "Highlight", gr: "gr1" },
+            { date: "26.07.2026", event: "Großer Dallmayr-Preis", location: "München-Riem", country: "DE", category: "Gr. 1", gr: "gr1" },
+            { date: "02.08.2026", event: "Preis der Diana", location: "Düsseldorf", country: "DE", category: "Stuten-Derby", gr: "gr1" },
+            { date: "09.08.2026", event: "Großer Preis von Berlin", location: "Berlin-Hoppegarten", country: "DE", category: "Gr. 1", gr: "gr1" },
+            { date: "29.08.2026", event: "Grosse Woche Baden-Baden", location: "Baden-Baden", country: "DE", category: "Meeting", gr: "" },
+            { date: "06.09.2026", event: "Großer Preis von Baden", location: "Baden-Baden", country: "DE", category: "Highlight", gr: "gr1" },
+            { date: "12.09.2026", event: "St Leger Stakes", location: "Doncaster", country: "UK", category: "Klassiker", gr: "gr1" },
+            { date: "27.09.2026", event: "Preis von Europa", location: "Köln-Weidenpesch", country: "DE", category: "Gr. 1", gr: "gr1" },
+            { date: "03.10.2026", event: "Arc-Wochenende", location: "ParisLongchamp", country: "FR", category: "Meeting", gr: "" },
+            { date: "04.10.2026", event: "Prix de l'Arc de Triomphe", location: "ParisLongchamp", country: "FR", category: "Europa-Finale", gr: "gr1" },
+            { date: "11.10.2026", event: "Preis des Winterfavoriten", location: "Köln-Weidenpesch", country: "DE", category: "Gr. 3", gr: "gr3" },
+            { date: "16.10.2026", event: "Sales & Racing Festival", location: "Baden-Baden", country: "DE", category: "Saisonabschluss", gr: "" },
+            { date: "30.10.2026", event: "Breeders' Cup", location: "Keeneland", country: "USA", category: "Weltmeisterschaft", gr: "gr1" },
+            { date: "03.11.2026", event: "Melbourne Cup", location: "Flemington", country: "AUS", category: "Gr. 1", gr: "gr1" },
+            { date: "08.11.2026", event: "Großer Preis von Bayern", location: "München-Riem", country: "DE", category: "Saisonfinale", gr: "gr1" },
+            { date: "29.11.2026", event: "Japan Cup", location: "Tokio", country: "JPN", category: "Gr. 1", gr: "gr1" },
+            { date: "13.12.2026", event: "Hong Kong International Races", location: "Sha Tin", country: "HK", category: "Saisonfinale Welt", gr: "gr1" }
+        ];
+
+        const countryMap = { "DE": "de", "USA": "usa", "UK": "uk", "FR": "fr", "IRE": "ire", "KSA": "ksa", "UAE": "uae", "HK": "hk", "AUS": "aus", "JPN": "jpn" };
+        const countryColors = { de: "#3b82f6", usa: "#ef4444", uk: "#8b5cf6", fr: "#ec4899", ire: "#10b981", ksa: "#f59e0b", uae: "#06b6d4", hk: "#a855f7", aus: "#f97316", jpn: "#e11d48" };
+
+        let filteredRaces = [...races];
+
+        function getCountryCode(country) {
+            return countryMap[country] || country.toLowerCase();
+        }
+
+        function parseDate(dateStr) {
+            const [day, month, year] = dateStr.split(".").map(Number);
+            return new Date(year, month - 1, day);
+        }
+
+        function getMonth(dateStr) {
+            const date = parseDate(dateStr);
+            return date.toLocaleString("de-DE", { month: "long", year: "numeric" });
+        }
+
+        function renderTimeline() {
+            const months = {};
+            filteredRaces.forEach(race => {
+                const month = getMonth(race.date);
+                if (!months[month]) months[month] = [];
+                months[month].push(race);
+            });
+
+            const timeline = document.getElementById("timelineView");
+            timeline.innerHTML = "";
+
+            Object.entries(months).forEach(([month, monthRaces]) => {
+                const monthDiv = document.createElement("div");
+                monthDiv.className = "timeline-month";
+                monthDiv.innerHTML = `<div class="month-title">${month}</div><div class="races"></div>`;
+
+                const racesContainer = monthDiv.querySelector(".races");
+                monthRaces.forEach(race => {
+                    const countryCode = getCountryCode(race.country);
+                    const grClass = race.gr ? race.gr : "";
+                    const raceBar = document.createElement("div");
+                    raceBar.className = `race-bar ${countryCode} ${grClass}`;
+                    raceBar.innerHTML = `<span class="race-name">${race.event}</span><span class="race-meta">${race.date} • ${race.country}</span>`;
+                    raceBar.onclick = () => showModal(race);
+                    racesContainer.appendChild(raceBar);
+                });
+
+                timeline.appendChild(monthDiv);
+            });
+
+            updateStats();
+            updateInfo();
+        }
+
+        let currentCalendarDate = new Date(2026, 0, 1);
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            document.getElementById("currentMonth").textContent = 
+                currentCalendarDate.toLocaleString("de-DE", { month: "long", year: "numeric" });
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const prevLastDay = new Date(year, month, 0).getDate();
+            const nextDays = 7 - lastDay.getDay();
+
+            const grid = document.getElementById("calendarGrid");
+            grid.innerHTML = "";
+
+            // Wochentag-Header
+            const weekDays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+            weekDays.forEach(day => {
+                const header = document.createElement("div");
+                header.className = "calendar-day-header";
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+
+            // Tage aus vorherigem Monat
+            for (let i = firstDay.getDay() - 1; i > 0; i--) {
+                const dayDiv = document.createElement("div");
+                dayDiv.className = "calendar-day other-month";
+                dayDiv.textContent = prevLastDay - i + 1;
+                grid.appendChild(dayDiv);
+            }
+
+            // Tage des aktuellen Monats
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const dateStr = `${String(day).padStart(2, "0")}.${String(month + 1).padStart(2, "0")}.${year}`;
+                const dayRaces = filteredRaces.filter(r => r.date === dateStr);
+
+                const dayDiv = document.createElement("div");
+                dayDiv.className = `calendar-day ${dayRaces.length > 0 ? "has-races" : ""}`;
+                dayDiv.innerHTML = `<span class="calendar-day-number">${day}</span>`;
+                
+                if (dayRaces.length > 0) {
+                    dayDiv.innerHTML += `<span class="calendar-day-count">${dayRaces.length} 🏇</span>`;
+                    dayDiv.onclick = () => showCalendarDayModal(dateStr, dayRaces);
+                }
+                
+                grid.appendChild(dayDiv);
+            }
+
+            // Tage aus nächstem Monat
+            for (let day = 1; day <= nextDays; day++) {
+                const dayDiv = document.createElement("div");
+                dayDiv.className = "calendar-day other-month";
+                dayDiv.textContent = day;
+                grid.appendChild(dayDiv);
+            }
+        }
+
+        function previousMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll(".tab-content").forEach(tab => {
+                tab.classList.remove("active");
+            });
+            document.querySelectorAll(".tab-btn").forEach(btn => {
+                btn.classList.remove("active");
+            });
+            
+            document.getElementById(tabName).classList.add("active");
+            event.target.classList.add("active");
+
+            if (tabName === "calendar") {
+                renderCalendar();
+            }
+        }
+
+        function showCalendarDayModal(dateStr, dayRaces) {
+            const date = parseDate(dateStr);
+            const dateDisplay = date.toLocaleString("de-DE", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+            
+            document.getElementById("modalTitle").textContent = `${dateDisplay} - ${dayRaces.length} Rennen`;
+            
+            let bodyHTML = "";
+            dayRaces.forEach((race, idx) => {
+                bodyHTML += `
+                    <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                        <div style="font-weight: 700; color: var(--color-slate-900); margin-bottom: 8px;">${race.event}</div>
+                        <div class="detail-row">
+                            <span class="detail-label">Ort:</span>
+                            <span class="detail-value">${race.location}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Land:</span>
+                            <span class="detail-value">${race.country}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Kategorie:</span>
+                            <span class="detail-value">${race.category}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById("modalBody").innerHTML = bodyHTML;
+            document.getElementById("modal").classList.add("active");
+        }
+
+        function updateStats() {
+            const stats = document.getElementById("stats");
+            const countryStats = {};
+            const categoryStats = {};
+
+            filteredRaces.forEach(race => {
+                countryStats[race.country] = (countryStats[race.country] || 0) + 1;
+                categoryStats[race.category] = (categoryStats[race.category] || 0) + 1;
+            });
+
+            stats.innerHTML = `
+                <div class="stat-box">
+                    <div class="stat-number">${filteredRaces.length}</div>
+                    <div class="stat-label">Rennen gesamt</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">${Object.keys(countryStats).length}</div>
+                    <div class="stat-label">Länder</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">${filteredRaces.filter(r => r.gr).length}</div>
+                    <div class="stat-label">Gr. 1/2/3 Rennen</div>
+                </div>
+            `;
+        }
+
+        function updateInfo() {
+            const infoMessage = document.getElementById("infoMessage");
+            if (filteredRaces.length === 0) {
+                infoMessage.textContent = "Keine Rennen gefunden. Bitte Filter anpassen.";
+                infoMessage.style.display = "block";
+            } else {
+                infoMessage.style.display = "none";
+            }
+        }
+
+        function showModal(race) {
+            document.getElementById("modalTitle").textContent = race.event;
+            document.getElementById("modalBody").innerHTML = `
+                <div class="detail-row">
+                    <span class="detail-label">Datum:</span>
+                    <span class="detail-value">${race.date}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Veranstaltung:</span>
+                    <span class="detail-value">${race.event}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Ort:</span>
+                    <span class="detail-value">${race.location}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Land:</span>
+                    <span class="detail-value">${race.country}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Kategorie:</span>
+                    <span class="detail-value">${race.category}</span>
+                </div>
+            `;
+            document.getElementById("modal").classList.add("active");
+        }
+
+        function closeModal() {
+            document.getElementById("modal").classList.remove("active");
+        }
+
+        function applyFilters() {
+            const countryFilter = document.getElementById("countryFilter").value;
+            const categoryFilter = document.getElementById("categoryFilter").value;
+
+            filteredRaces = races.filter(race => {
+                const countryMatch = !countryFilter || getCountryCode(race.country) === countryFilter;
+                let categoryMatch = true;
+
+                if (categoryFilter === "gr1") categoryMatch = race.gr === "gr1";
+                else if (categoryFilter === "gr2") categoryMatch = race.gr === "gr2";
+                else if (categoryFilter === "gr3") categoryMatch = race.gr === "gr3";
+                else if (categoryFilter === "klassiker") categoryMatch = race.category.includes("Klassiker");
+                else if (categoryFilter === "highlight") categoryMatch = race.category.includes("Highlight");
+
+                return countryMatch && categoryMatch;
+            });
+
+            renderTimeline();
+        }
+
+        function resetFilters() {
+            document.getElementById("countryFilter").value = "";
+            document.getElementById("categoryFilter").value = "";
+            filteredRaces = [...races];
+            renderTimeline();
+        }
+
+        document.getElementById("countryFilter").addEventListener("change", applyFilters);
+        document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("modal");
+            if (event.target === modal) closeModal();
+        };
+
+        // Initial render
+        renderTimeline();
+        renderCalendar();
+    </script>
+</body>
+</html>
